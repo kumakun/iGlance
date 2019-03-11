@@ -2,9 +2,27 @@
 //  MenuBarGraph.swift
 //  iGlance
 //
-//  Created by Dominik on 16.02.19.
-//  Copyright © 2019 iGlance Corp. All rights reserved.
+//  MIT License
 //
+//  Copyright (c) 2018 Cemal K <https://github.com/Moneypulation>, Dominik H <https://github.com/D0miH>
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
 
 import Cocoa
 
@@ -30,7 +48,7 @@ class MenuBarGraph {
     // the maximum value points of the graph
     var maxValueCount: Int = 0
     
-    func drawUsageGraph(value: Double, drawBorder: Bool, givenImage: NSImage? = nil) -> NSImage {
+    func drawUsageGraph(value: Double, drawBorder: Bool, givenImage: NSImage, givenColor: NSColor) -> NSImage {
         updateHorizontalPos()
         // normalize the value to fit in the graph
         let normalizedValue: Double = round((value/100) * 16)
@@ -41,7 +59,7 @@ class MenuBarGraph {
         finalImg.lockFocus()
         
         // draw the given image
-        givenImage?.draw(at: NSPoint(x:0, y:0), from: NSZeroRect, operation: NSCompositingOperation.sourceOver, fraction: 1.0)
+        givenImage.draw(at: NSPoint(x:0, y:0), from: NSZeroRect, operation: NSCompositingOperation.sourceOver, fraction: 1.0)
         
         if drawBorder {
             // draw the border around the graph area
@@ -55,7 +73,7 @@ class MenuBarGraph {
         }
         
         // set the draw color
-        AppDelegate.UserSettings.cpuColor.setFill()
+        givenColor.setFill()
         for pair in graphValueArray {
             // if the data point of the graph would be outside of the box don't draw the point
             if pair.horizontalPos <= 6 || pair.horizontalPos >= width-3{

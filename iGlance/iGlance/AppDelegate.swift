@@ -2,9 +2,27 @@
 //  AppDelegate.swift
 //  iGlance
 //
-//  Created by Cemal on 01.06.18.
-//  Copyright © 2018 iGlance Corp. All rights reserved.
+//  MIT License
 //
+//  Copyright (c) 2018 Cemal K <https://github.com/Moneypulation>, Dominik H <https://github.com/D0miH>
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
 
 import Cocoa
 import ServiceManagement
@@ -35,7 +53,7 @@ extension NSColor {
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    public static var VERSION = "1.3"
+    public static var VERSION = "1.3.2"
 
     var myWindowController: MyMainWindow?
     
@@ -89,6 +107,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_: Notification) {
         checkForUpdate()
+        
+        let notificationCenter = NSWorkspace.shared.notificationCenter
+        notificationCenter.addObserver(self, selector: #selector(AppDelegate.wakeUpListener), name: NSWorkspace.didWakeNotification, object: nil)
 
         CpuTempComponent.sItemCPUTemp.isVisible = false
         CpuUsageComponent.sItemCpuUtil.isVisible = false
@@ -161,6 +182,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
         }
+    }
+    
+    @objc func wakeUpListener(note: NSNotification)
+    {
+        checkForUpdate()
     }
 
     func matches(for regex: String, in text: String) -> [String] {
@@ -396,5 +422,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 class NCConstants { // Notify constant
     static let KILLME = Notification.Name("killme")
-    static let launcherApplicationIdentifier = "noorganization.iGlanceLauncher"
+    static let launcherApplicationIdentifier = "io.iglance.iGlanceLauncher"
 }
