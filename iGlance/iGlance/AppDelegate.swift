@@ -153,6 +153,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         intervalTimer = Timer.scheduledTimer(timeInterval: UserSettings.updateInterval, target: self, selector: #selector(updateAll), userInfo: nil, repeats: true)
         RunLoop.current.add(intervalTimer!, forMode: RunLoop.Mode.common)
+        
+        NSApp.hide(nil)
     }
 
     func checkForUpdate() {

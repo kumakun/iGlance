@@ -28,7 +28,7 @@ import Cocoa
 
 class NetUsageComponent {
     // the menu bar item
-    static let sItemBandwidth = NSStatusBar.system.statusItem(withLength: 62.0)
+    static let sItemBandwidth = NSStatusBar.system.statusItem(withLength: 52.0)
     // the button of the menu bar icon
     var btnBandwidth: NSStatusBarButton?
     // the menu of the item
@@ -226,7 +226,7 @@ class NetUsageComponent {
         dLength = finalDown?.count
         uLength = finalUp?.count
 
-        let font = NSFont(name: "Apple SD Gothic Neo Bold", size: 11.0)
+        let font = NSFont(name: "Apple SD Gothic Neo Bold", size: 10.0)
         let fontSmall = NSFont(name: "Apple SD Gothic Neo Bold", size: 8.0)
         let attrString = NSMutableAttributedString(string: finalDown ?? "0 KB/s")
         attrString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attrString.length))
@@ -240,7 +240,7 @@ class NetUsageComponent {
         attrString2.addAttribute(.font, value: font as Any, range: NSMakeRange(0, attrString2.length - 4))
         attrString2.addAttribute(.font, value: fontSmall as Any, range: NSMakeRange(attrString2.length - 4, 4))
         attrString2.addAttribute(.foregroundColor, value: bandColor ?? NSColor.white, range: NSMakeRange(0, attrString2.length))
-        attrString2.draw(at: NSPoint(x: 16, y: -4))
+        attrString2.draw(at: NSPoint(x: 16, y: -3))
         imgFinal.unlockFocus()
         btnBandwidth?.image = imgFinal
     }
