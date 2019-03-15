@@ -106,7 +106,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     static var currTimeInterval = AppDelegate.UserSettings.updateInterval
 
     func applicationDidFinishLaunching(_: Notification) {
-        checkForUpdate()
+        //checkForUpdate()
         
         let notificationCenter = NSWorkspace.shared.notificationCenter
         notificationCenter.addObserver(self, selector: #selector(AppDelegate.wakeUpListener), name: NSWorkspace.didWakeNotification, object: nil)
